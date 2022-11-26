@@ -1,11 +1,15 @@
 ---
 title: "Historical horse population in Canada"
-output: github_document
+output:   
+  html_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
+library(knitr)
+library(kableExtra)
 ```
 
 ## Aim
@@ -54,14 +58,14 @@ industry after the Great Depression and the Second World War. An interesting fol
 
 Next we look at the range of the number horses for each provinces at any time point between 1940 - 1972:
 
-```{r max horse table}
+```{r max horse table, echo=FALSE}
 max_horses <- horse_pop %>% 
   select(GEO, Value) %>% 
   rename(Province = GEO) %>% 
   group_by(Province) %>% 
   summarize(Maximum = max(Value),
             Minimum = min(Value))
-max_horses
+knitr::kable(max_horses, caption = "Table 1. range of the number horses for each provinces at any time point between 1940 - 1972") |> kableExtra::kable_styling(full_width = FALSE)
 ```
 
 Below we zoom in and look at the province of Alberta:
